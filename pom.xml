@@ -11,7 +11,6 @@
     <modules>
         <module>dbexpand</module>
         <module>mysql</module>
-        <module>website</module>
     </modules>
 
     <parent>

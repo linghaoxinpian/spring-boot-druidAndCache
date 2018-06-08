@@ -3,12 +3,13 @@ package com.test.mysql.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +29,9 @@ public class User {
     @JsonBackReference
     private Department department;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)    //OneToMany与ManyToMany默认是懒加载 FetchType.EAGER 指不进行懒加载，以免Session close
     @JoinTable(name = "user_role",joinColumns = {@JoinColumn(name = "user_id")},inverseJoinColumns = {@JoinColumn(name = "role_id")})
+
     private List<Role> roles;
 
     //--------------------属性--------------------
